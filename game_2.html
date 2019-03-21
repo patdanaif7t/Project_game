@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+        integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <title>Game 2</title>
+</head>
+
+<body style="background-image: url(bg.png);" onload="init()">
+    <div class="container-fluid" style="background-color: rgb(0, 255, 115); width: 100%;">
+        <h1 class="text-center" style="background-color: rgb(0, 255, 115); width: 100%;">2nd GRADE</h1>
+    </div>
+
+    <div class="container-fluid" style=" width: 100%; height: 400px;">
+        <div class="d-flex justify-content-between">
+            <h1 id="showScore" style="color: rgb(8, 8, 8)">Score : 0</h1>
+            <h1 id="countdown" style="color: rgb(255, 14, 14)"></h1>
+        </div>
+        <div class="d-flex justify-content-center">
+            <img style=" border-radius: 50%;" src="http://clipart-library.com/images/BTgrq9Goc.gif" width="150px"
+                height="100px">
+        </div>
+        <div class="d-flex justify-content-center" style="margin-top: 90px">
+            <h1 style="font-size: 70px; color: white" id="Que"></h1>
+            <input type="text" class="form-control" style="height: 100px; width: 200px;font-size: 80px; margin-left: 10px"
+                maxlength="3" id="answer">
+        </div>
+
+    </div>
+    <div class="container-fluid" style=" width: 100%; height: 200px;">
+        <div class="d-flex bd-highlight mb-6 center">
+            <button style="margin-left: 25%" type="button" class="g2-buttons btn btn-warning g2-btn-l" value="5"
+                draggable="true" ondragstart="drag(event)" id="Choice1">5</button>
+            <button type="button" class="btn btn-success g2-buttons g2-btn-l" value="10" id="Choice2" draggable="true"
+                ondragstart="drag(event)">10</button>
+            <button type="button" class="btn btn-danger g2-buttons g2-btn-l" value="25" id="Choice3" draggable="true"
+                ondragstart="drag(event)">25</button>
+            <button type="button" class="btn btn-dark g2-buttons g2-btn-l" value="18" id="Choice4" draggable="true"
+                ondragstart="drag(event)">18</button>
+        </div>
+
+    </div>
+    <div class="container-fluid" style="width: 100%; height: 100px;">
+        <button type="button" class="btn btn-danger" style="margin-left: 38%;  font-size: 55px" onclick="checkAnswer(),showScore()">Next
+            >></button>
+    </div>
+
+    
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title " style="font-size: 40px;margin-left: 29%" id="exampleModalLongTitle">
+                        ❌ เสียใจด้วย ❌</h2>
+                </div>
+                <div class="modal-body">
+                    <div class="d-flex justify-content-center">
+                        <img src="cry.gif" width="150px" height="100px">
+                    </div>
+                    <p class="text-center" style="font-size: 50px" id="modalScore">คะแนนที่คุณได้ </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondadry" data-dismiss="moal" onclick="reload()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="winmodal" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title " style="font-size: 40px;margin-left: 29%" id="exampleModalLongTitle">
+                        ✔️ ดีใจด้วย ✔️</h2>
+                </div>
+                <div class="modal-body">
+                    <div class="d-flex justify-content-center">
+                        <img src="win.gif" width="150px" height="100px">
+                    </div>
+                    <p class="text-center" style="font-size: 50px" id="modalScore">คุณได้คะแนน 10/10 ผ่านด่านนี้แล้ว</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="choose_game.html"> <button type="button" class="btn btn-secondadry" data-dismiss="moal">Close</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ------------------- ------ -->
+
+
+    <script>
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.value);
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("text");
+            ev.target.appendChild(document.getElementById(data));
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+        crossorigin="anonymous"></script>
+    <script src="game_2.js"></script>
+</body>
+
+</html>
